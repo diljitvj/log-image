@@ -7,7 +7,6 @@ const MIME_PNG = "image/png";
 const MIME_JPEG = "image/jpeg";
 
 function getImageBufferData(path) {
-  if ("string" !== typeof path) throw new Error("path must be a string");
   const mimeType = mime.getType(path);
   switch (mimeType) {
     case MIME_PNG: {
@@ -126,6 +125,17 @@ function resizeImageWithNewWidth(
  */
 
 function renderImage(path, renderWidthPercentage = 100) {
+  if ("string" !== typeof path) throw new Error("path must be a string");
+
+  if (
+    typeof renderWidthPercentage !== "number" ||
+    renderWidthPercentage <= 0 ||
+    renderWidthPercentage >= 100
+  )
+    throw new Error(
+      "Render width percentage mush be a number between 1 and 100"
+    );
+
   const { data, width, height } = getImageBufferData(path);
   const terminalWidth = Math.floor(
     (process.stdout.columns * renderWidthPercentage) / 100
