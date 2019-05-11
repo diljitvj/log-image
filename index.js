@@ -121,16 +121,22 @@ function resizeImageWithNewWidth(
 /**
  *
  * @param {String} path Path to the image file
+ * @param {Number} renderWidthPercentage Percentage width of terminal to render
+ * defaults to 100 %
  */
 
-function renderImage(path) {
+function renderImage(path, renderWidthPercentage = 100) {
   const { data, width, height } = getImageBufferData(path);
-  const terminalWidth = Math.floor(process.stdout.columns / 2.5);
+  const terminalWidth = Math.floor(
+    (process.stdout.columns * renderWidthPercentage) / 100
+  );
   const {
     data: resizedImage,
     width: newWidth,
     height: newHeight
   } = resizeImageWithNewWidth(data, width, height, terminalWidth);
+
+  const imageLogArr = [];
 
   for (let i = 0; i < newHeight; i++) {
     let rowColors = [];
@@ -141,7 +147,7 @@ function renderImage(path) {
     for (let j = 0; j < newWidth * 4; j = j + 4) {
       rowColors.push([row[j], row[j + 1], row[j + 2]]);
     }
-    console.log(
+    imageLogArr.push(
       eval(
         rowColors
           .map(p => {
@@ -153,6 +159,8 @@ function renderImage(path) {
       )
     );
   }
+
+  return imageLogArr.join("\n");
 }
 
 module.exports = renderImage;
