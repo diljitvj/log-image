@@ -128,9 +128,8 @@ function renderImage(path, renderWidthPercentage = 100) {
   if ("string" !== typeof path) throw new Error("path must be a string");
 
   if (
-    typeof renderWidthPercentage !== "number" ||
-    renderWidthPercentage <= 0 ||
-    renderWidthPercentage >= 100
+    typeof renderWidthPercentage === "number" &&
+    (renderWidthPercentage <= 0 || renderWidthPercentage > 100)
   )
     throw new Error(
       "Render width percentage mush be a number between 1 and 100"

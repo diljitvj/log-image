@@ -1,6 +1,6 @@
 {
   "name": "log-image",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Log images on cli",
   "main": "index.js",
   "scripts": {
