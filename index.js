@@ -137,7 +137,7 @@ function renderImage(path, renderWidthPercentage = 100) {
 
   const { data, width, height } = getImageBufferData(path);
   const terminalWidth = Math.floor(
-    (process.stdout.columns * renderWidthPercentage) / 100
+    (process.stdout.columns * renderWidthPercentage) / 200
   );
   const {
     data: resizedImage,
